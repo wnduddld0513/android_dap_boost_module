@@ -9,8 +9,8 @@ This Magisk module optimizes the iBasso DX180 by adjusting schedtune boost value
 4. Reboot your device.
 
 ## Features
-- Adjusts schedtune boost values.
-- Sets CPU min frequency to 300MHz (little cores) and 1056000MHz (big cores).
+- Adjusts schedtune boost values. (like Intel's Turbo-boost clock, Ryzen PBO)
+- Sets CPU min frequency to 300000MHz (little cores) and 300000MHz (big cores).
 - Sets CPU max frequency to 1804800MHz (little cores) and 2016000MHz (big cores).
 - Changes GPU governor to `simple_ondemand`.
 
