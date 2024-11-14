@@ -1,8 +1,5 @@
 #!/system/bin/sh
 
-# Initial wait for 3 seconds after boot
-sleep 3
-
 # Change ownership to make sure settings can be applied
 chown -R root:root /sys/devices/system/cpu
 chown -R root:root /sys/class/devfreq
@@ -25,30 +22,42 @@ apply_settings() {
   echo 0 > /dev/stune/background/schedtune.boost
   echo 1 > /dev/stune/background/schedtune.sched_boost_no_override
 
-  # Set CPU min frequency to 300MHz and max frequency to 1804800 for little cores (CPU0-CPU3)
+  # Set CPU min frequency to 600MHz and max frequency to 1804800 for little cores (CPU0-CPU3)
   for cpu in 0 1 2 3; do
-    echo 300000 > /sys/devices/system/cpu/cpu$cpu/cpufreq/scaling_min_freq
+    echo 614400 > /sys/devices/system/cpu/cpu$cpu/cpufreq/scaling_min_freq
     echo 1804800 > /sys/devices/system/cpu/cpu$cpu/cpufreq/scaling_max_freq
   done
 
-  # Set CPU min frequency to 300MHz and max frequency to 2016000 for big cores (CPU4-CPU7)
+  # Set CPU min frequency to 902400 and max frequency to 2016000 for big cores (CPU4-CPU7)
   for cpu in 4 5 6 7; do
-    echo 300000 > /sys/devices/system/cpu/cpu$cpu/cpufreq/scaling_min_freq
+    echo 902400 > /sys/devices/system/cpu/cpu$cpu/cpufreq/scaling_min_freq
     echo 2016000 > /sys/devices/system/cpu/cpu$cpu/cpufreq/scaling_max_freq
   done
 
-  # Set GPU governor to simple_ondemand for all available paths
-  for path in /sys/class/devfreq/*/governor; do
-    if [ "$(cat $path)" != "simple_ondemand" ]; then
-      echo "simple_ondemand" > $path
-    fi
-  done
+  # Set GPU min frequency to 745MHz
+  echo 745000000 > /sys/class/kgsl/kgsl-3d0/devfreq/min_freq
 }
 
 # Apply initial settings
 apply_settings
 
-# Reapply settings every 5 seconds for 5 times only
+# Disable current swapfile if exists
+swapfile=$(grep swap /proc/mounts | grep -v zram | awk '{print $1}')
+if [ -n "$swapfile" ]; then
+  swapoff $swapfile  
+  rm -f $swapfile    
+fi
+
+# Set ZRAM to 2GB
+echo 1 > /sys/block/zram0/reset
+echo 2147483648 > /sys/block/zram0/disksize
+echo lzo > /sys/block/zram0/comp_algorithm
+echo 32767 > /sys/block/zram0/priority
+
+# Activate ZRAM as swap
+swapon /dev/zram0   
+
+# Reapply only Freq settings for 5 times only
 for i in $(seq 1 5); do
   sleep 5
   apply_settings
