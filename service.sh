@@ -48,8 +48,8 @@ apply_settings() {
 # Apply initial settings
 apply_settings
 
-# Reapply settings every 5 seconds for 1 minute to ensure they are not overwritten
-for i in $(seq 1 12); do
+# Reapply settings every 5 seconds for 5 times only
+for i in $(seq 1 5); do
   sleep 5
   apply_settings
 done
