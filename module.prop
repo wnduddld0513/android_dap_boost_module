@@ -1,6 +1,6 @@
 id=dx180_performance
 name=iBasso DX180 Performance Magisk Module
-version=2.0
-versionCode=4
-author=Made by Dcinside Headphone Gallery User "Elainasang"
-description=Set schedtune.boost values, Set ZRAM to 4GB and tunes CPU/GPU minFreq for iBasso DX180 device.
+version=2.1
+versionCode=5
+author=Dcinside Headphone Gallery User "Elainasang"
+description=Set schedtune.boost,tunes CPU/GPU minFreq for iBasso DX180 device.
