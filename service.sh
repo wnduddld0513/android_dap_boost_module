@@ -8,7 +8,6 @@ chown -R root:root /sys/class/devfreq
 apply_settings() {
   # Apply schedtune boost settings
   echo 5 > /dev/stune/schedtune.boost
-  echo 1 > /dev/stune/schedtune.sched_boost_no_override
 
   echo 20 > /dev/stune/top-app/schedtune.boost
   echo 1 > /dev/stune/top-app/schedtune.sched_boost_no_override
@@ -35,27 +34,11 @@ apply_settings() {
   done
 
   # Set GPU min frequency to 745MHz
-  echo 745000000 > /sys/class/kgsl/kgsl-3d0/devfreq/min_freq
+  echo 600000000 > /sys/class/kgsl/kgsl-3d0/devfreq/min_freq
 }
 
 # Apply initial settings
 apply_settings
-
-# Disable current swapfile if exists
-swapfile=$(grep swap /proc/mounts | grep -v zram | awk '{print $1}')
-if [ -n "$swapfile" ]; then
-  swapoff $swapfile  
-  rm -f $swapfile    
-fi
-
-# Set ZRAM to 2GB
-echo 1 > /sys/block/zram0/reset
-echo 2147483648 > /sys/block/zram0/disksize
-echo lzo > /sys/block/zram0/comp_algorithm
-echo 32767 > /sys/block/zram0/priority
-
-# Activate ZRAM as swap
-swapon /dev/zram0   
 
 # Reapply only Freq settings for 5 times only
 for i in $(seq 1 5); do
