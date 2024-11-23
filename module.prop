@@ -1,6 +1,6 @@
-id=dx180_performance
-name=iBasso DX180 Performance Magisk Module
-version=2.1
+id=android_dap_boost_module
+name=Andorid DAP Performance Magisk Module
+version=2.2
 versionCode=5
-author=Dcinside Headphone Gallery User 「イレイナ」
-description=Set schedtune.boost,tunes CPU/GPU minFreq for iBasso DX180 device.
+author=Made by Dcinside Headphone Gallery「イレイナ」
+description=Set schedtune.boost Values
