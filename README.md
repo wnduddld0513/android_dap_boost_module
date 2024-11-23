@@ -1,4 +1,4 @@
-# android_dap_boost_module
+# Android Dap Boost Magisk Module
 *Only for Snapdragon Devices
 ## Features
 - schedtune.boost feature enabled
