@@ -1,7 +1,7 @@
 #!/system/bin/sh
 
 # Module removal script
-print "Removing dx180_performance module..."
+print "Removing android_dap_boost_module..."
 
 # Restore settings
   echo 0 > /dev/stune/foreground/schedtune.boost
