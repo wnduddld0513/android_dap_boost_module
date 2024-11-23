@@ -3,4 +3,4 @@ name=Andorid DAP Performance Magisk Module
 version=2.2
 versionCode=5
 author=Made by Dcinside Headphone Gallery「イレイナ」
-description=Set schedtune.boost Values
+description=Set schedtune.boost Values, GPU minFreq 350mHz > 465mHz
