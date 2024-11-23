@@ -4,7 +4,7 @@ chown -R root:root /sys/class/devfreq
 
 apply_settings() {
   # Apply schedtune boost settings
-  echo 30 > /dev/stune/foreground/schedtune.boost
+  echo 12 > /dev/stune/foreground/schedtune.boost
   echo 1 > /dev/stune/foreground/schedtune.sched_boost_no_override
 
   # Set GPU minFreq
